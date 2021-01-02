@@ -1,0 +1,26 @@
+name: Tests
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+          python-version: [3.6, 3.7, 3.8]
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
